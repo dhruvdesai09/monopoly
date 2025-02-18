@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "rootDir": "./",  // Set rootDir to project root
+    "outDir": "dist",
+    "strict": true,
+    "esModuleInterop": true
+  },
+  "include": ["src", "prisma"] // Add 'prisma' to included paths
+}

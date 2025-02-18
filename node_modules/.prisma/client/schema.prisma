@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Team {
+  id         String     @id @default(uuid())
+  name       String     @unique
+  players    Player[]   @relation("TeamPlayers") // Fix: Added relation name
+  properties Property[] @relation("TeamProperties") // Fix: Added relation name
+}
+
+model Property {
+  id      String  @id @default(uuid())
+  name    String  @unique
+  ownerId String?
+  owner   Team?   @relation(fields: [ownerId], references: [id], name: "TeamProperties") // Fix: Added relation name
+}
+
+model Player {
+  id     String @id @default(uuid())
+  name   String
+  teamId String
+  team   Team   @relation(fields: [teamId], references: [id], name: "TeamPlayers") // Fix: Added relation name
+}
